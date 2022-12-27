@@ -66,51 +66,51 @@
 
 // TABULATION
 
-#include <bits/stdc++.h>
-using namespace std;
+// #include <bits/stdc++.h>
+// using namespace std;
 
-int main()
-{
+// int main()
+// {
 
-    vector<vector<int>> matrix = {
-        {1, 2, 3},
-        {9, 8, 7},
-        {4, 5, 6}};
-    int n = matrix.size(), m = matrix[0].size();
-    int dp[n][m];
+//     vector<vector<int>> matrix = {
+//         {1, 2, 3},
+//         {9, 8, 7},
+//         {4, 5, 6}};
+//     int n = matrix.size(), m = matrix[0].size();
+//     int dp[n][m];
 
-    // Base Case
-    for (int j = 0; j < m; j++)
-    {
-        dp[0][j] = matrix[0][j];
-    }
+//     // Base Case
+//     for (int j = 0; j < m; j++)
+//     {
+//         dp[0][j] = matrix[0][j];
+//     }
 
-    for (int i = 1; i < n; i++)
-    {
-        for (int j = 0; j < m; j++)
-        {
-            int dleft = 0, dright = 0;
-            int up = matrix[i][j] + dp[i - 1][j];
-            if (j - 1 > 0)
-            {
-                dleft = matrix[i][j] + dp[i - 1][j - 1];
-            }
-            if (j + 1 < m)
-            {
-                dright = matrix[i][j] + dp[i - 1][j + 1];
-            }
+//     for (int i = 1; i < n; i++)
+//     {
+//         for (int j = 0; j < m; j++)
+//         {
+//             int dleft = 0, dright = 0;
+//             int up = matrix[i][j] + dp[i - 1][j];
+//             if (j - 1 > 0)
+//             {
+//                 dleft = matrix[i][j] + dp[i - 1][j - 1];
+//             }
+//             if (j + 1 < m)
+//             {
+//                 dright = matrix[i][j] + dp[i - 1][j + 1];
+//             }
 
-            dp[i][j] = max(up, max(dleft, dright));
-        }
-    }
+//             dp[i][j] = max(up, max(dleft, dright));
+//         }
+//     }
 
-    int maxi = -1e9;
-    for (int j = 0; j < m; j++)
-    {
-        maxi = max(maxi, dp[n - 1][j]);
-    }
+//     int maxi = -1e9;
+//     for (int j = 0; j < m; j++)
+//     {
+//         maxi = max(maxi, dp[n - 1][j]);
+//     }
 
-    cout << maxi;
+//     cout << maxi;
 
-    return 0;
-}
+//     return 0;
+// }
