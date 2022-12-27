@@ -1,0 +1,1 @@
+{"name":"Local: FrogJump","url":"d:\\Coding\\DSA\\Dynamic Programming\\FrogJump.cpp","tests":[{"id":1671534009603,"input":"4\n2 4 6 8","output":"20\n20\n20\n20"}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"d:\\Coding\\DSA\\Dynamic Programming\\FrogJump.cpp","group":"local","local":true}
