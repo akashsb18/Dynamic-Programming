@@ -130,7 +130,10 @@ int main()
         {
             dp[i][0] = true;
         }
-        dp[0][nums[0]] = true;
+        if (k >= nums[0])
+        {
+            dp[0][nums[0]] = true;
+        }
         for (int ind = 1; ind < n; ind++)
         {
             for (int target = 0; target <= k; target++)
