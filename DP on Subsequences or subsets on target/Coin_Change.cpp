@@ -21,14 +21,14 @@
 // int f(int ind, int T, vector<int> &v)
 // {
 
-//     if (ind == 0)
+// if (ind == 0)
+// {
+//     if (T % v[0] == 0)
 //     {
-//         if (T % v[0] == 0)
-//         {
-//             return T / v[0];
-//         }
-//         return 1e9;
+//         return T / v[0];
 //     }
+//     return 1e9;
+// }
 
 // int notTake = 0 + f(ind - 1, T, v);
 // int take = 1e9;

@@ -113,4 +113,56 @@
 //     cout << maxi;
 
 //     return 0;
-// }
+
+// Space optimization
+
+#include <bits/stdc++.h>
+using namespace std;
+
+int main()
+{
+
+    vector<vector<int>> matrix = {
+        {1, 2, 3},
+        {9, 8, 7},
+        {4, 5, 6}};
+    int n = matrix.size(), m = matrix[0].size();
+    // int dp[n + 1][m + 1];
+    vector<int> prev(n + 1, 0), curr(m + 1, 0);
+    // Base Case
+    for (int j = 0; j < m; j++)
+    {
+        prev[j] = matrix[0][j];
+    }
+
+    for (int i = 1; i < n; i++)
+    {
+        for (int j = 0; j < m; j++)
+        {
+            int dleft = 0, dright = 0;
+            int up = matrix[i][j] + prev[j];
+            if (j - 1 > 0)
+            {
+                dleft = matrix[i][j] + prev[j - 1];
+            }
+            if (j + 1 < m)
+            {
+                dright = matrix[i][j] + prev[j + 1];
+            }
+
+            curr[j] = max(up, max(dleft, dright));
+        }
+
+        prev = curr;
+    }
+
+    int maxi = -1e9;
+    for (int j = 0; j < m; j++)
+    {
+        maxi = max(maxi, prev[j]);
+    }
+
+    cout << maxi;
+
+    return 0;
+}
