@@ -1,0 +1,152 @@
+// Given a wooden stick of length n units. The stick is labelled from 0 to n. For example, a stick of length 6 is labelled as follows:
+
+// Given an integer array cuts where cuts[i] denotes a position you should perform a cut at.
+
+// You should perform the cuts in order, you can change the order of the cuts as you wish.
+
+// The cost of one cut is the length of the stick to be cut, the total cost is the sum of costs of all cuts. When you cut a stick, it will be split into two smaller sticks (i.e. the sum of their lengths is the length of the stick before the cut). Please refer to the first example for a better explanation.
+
+// Return the minimum total cost of the cuts.
+
+//  Input: n = 7, cuts = [1,3,4,5]
+// Output: 16
+// Explanation: Using cuts order = [1, 3, 4, 5] as in the input leads to the following scenario:
+
+// The first cut is done to a rod of length 7 so the cost is 7. The second cut is done to a rod of length 6 (i.e. the second part of the first cut), the third is done to a rod of length 4 and the last cut is to a rod of length 3. The total cost is 7 + 6 + 4 + 3 = 20.
+// Rearranging the cuts to be [3, 5, 1, 4] for example will lead to a scenario with total cost = 16 (as shown in the example photo 7 + 4 + 3 + 2 = 16).
+
+// //RECURSION
+// #include <bits/stdc++.h>
+// using namespace std;
+
+// int f(int i, int j, vector<int> &v)
+// {
+
+//     if (i > j)
+//     {
+//         return 0;
+//     }
+//     int mini = 1e9;
+//     for (int ind = i; ind <= j; ind++)
+//     {
+//         int cost = v[j + 1] - v[i - 1] + f(i, ind - 1, v) + f(ind + 1, j, v);
+//         mini = min(mini, cost);
+//     }
+
+//     return mini;
+// }
+
+// int main()
+// {
+
+//     vector<int> cuts = {5, 6, 1, 4, 2};
+//     int c = cuts.size();
+//     int n = 9;
+
+//     cuts.insert(cuts.begin(), 0);
+//     cuts.push_back(n);
+
+//     sort(cuts.begin(), cuts.end());
+
+//     cout << f(1, c, cuts);
+
+//     return 0;
+// }
+
+// MEMOIZATION
+
+// #include <bits/stdc++.h>
+// using namespace std;
+
+// int f(int i, int j, vector<int> &v, vector<vector<int>> &dp)
+// {
+
+//     if (i > j)
+//     {
+//         return 0;
+//     }
+//     if (dp[i][j] != -1)
+//     {
+//         return dp[i][j];
+//     }
+//     int mini = 1e9;
+//     for (int ind = i; ind <= j; ind++)
+//     {
+//         int cost = v[j + 1] - v[i - 1] + f(i, ind - 1, v, dp) + f(ind + 1, j, v, dp);
+//         mini = min(mini, cost);
+//     }
+
+//     return dp[i][j] = mini;
+// }
+
+// int main()
+// {
+
+// vector<int> cuts = {5, 6, 1, 4, 2};
+// int c = cuts.size();
+// int n = 9;
+
+// cuts.insert(cuts.begin(), 0);
+// cuts.push_back(n);
+
+// sort(cuts.begin(), cuts.end());
+
+//     vector<vector<int>> dp(n + 1, vector<int>(c + 1, -1));
+
+//     cout << f(1, c, cuts, dp);
+
+//     return 0;
+// }
+
+// SC --> O(m ^ 3)
+
+// Tabulation
+
+#include <bits/stdc++.h>
+using namespace std;
+
+int main()
+{
+    vector<int> cuts = {5, 6, 1, 4, 2};
+    int c = cuts.size();
+    int n = 9;
+
+    cuts.insert(cuts.begin(), 0);
+    cuts.push_back(n);
+
+    sort(cuts.begin(), cuts.end());
+
+    vector<vector<int>> dp(c + 2, vector<int>(c + 2, 0));
+    for (int i = c; i >= 1; i--)
+    {
+        for (int j = 1; j <= c; j++)
+        {
+            if (i > j)
+            {
+                continue;
+            }
+            int mini = 1e9;
+
+            for (int ind = j; ind >= i; ind--)
+            {
+
+                int cost = cuts[j + 1] - cuts[i - 1] + dp[i][ind - 1] + dp[ind + 1][j];
+                mini = min(mini, cost);
+            }
+            dp[i][j] = mini;
+        }
+    }
+
+    // for (int i = 0; i < c; i++)
+    // {
+    //     for (int j = 0; j < c; j++)
+    //     {
+    //         cout << dp[i][j] << " ";
+    //     }
+    //     cout << endl;
+    // }
+
+    cout << dp[1][c];
+
+    return 0;
+}
